@@ -3,7 +3,7 @@ package com.wangzehao.flashsale.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;do;
+import lombok.Setter;
 
 @Getter
 @Setter

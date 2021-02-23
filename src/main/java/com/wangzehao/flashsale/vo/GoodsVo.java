@@ -1,5 +1,6 @@
 package com.wangzehao.flashsale.vo;
 
+import com.wangzehao.flashsale.domain.Goods;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodsVo {
+public class GoodsVo extends Goods {
     private Double salePrice;
     private Integer stockCount;
     private Date startDate;
