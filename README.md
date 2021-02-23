@@ -112,3 +112,7 @@ A distributed system for flash sale  implemented in Java.
   
   
 
+## Login
+
+password saved as MD5(MD5(pass+salt) + salt)
+

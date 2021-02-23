@@ -37,4 +37,6 @@ public class GoodsController extends BaseController{
         model.addAttribute("goodsList", goodsVoList);
         return render(request, response, model, "goods_list");
     }
+
+    @RequestMapping
 }
