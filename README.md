@@ -63,5 +63,22 @@ A distributed system for flash sale  implemented in Java.
   INSERT INTO `sale_goods` VALUES ('4', '4', '0.01', '9', '2017-12-04 21:40:14', '2017-12-31 14:00:24');
   ```
   
+  ```sql
+  -- ----------------------------
+  -- Table structure for user
+  -- ----------------------------
+  DROP TABLE IF EXISTS `user`;
+  CREATE TABLE `user` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(10) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  
+  -- ----------------------------
+  -- Records of user
+  -- ----------------------------
+  INSERT INTO `user` VALUES ('1', 'Joshua');
+  ```
+  
   
 
