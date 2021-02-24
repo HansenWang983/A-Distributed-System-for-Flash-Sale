@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -21,6 +22,10 @@ public class SaleUserService {
 
     public static final String COOKIE_NAME_TOKEN = "token";
     private static Logger logger = LoggerFactory.getLogger(SaleUserService.class);
+
+    public SaleUser getByNickname(String nickname){
+        return saleUserDao.getByNickname(nickname);
+    }
 
     public boolean login(HttpServletResponse response, LoginVo loginVo){
         if(loginVo==null){
@@ -34,13 +39,46 @@ public class SaleUserService {
         }
         String dbPass = user.getPassword();
         String salt = user.getSalt();
-        if(!Md5.inputPass2DBPass(password,salt).equals(dbPass)){
+        if(!Md5.formPass2DBPass(password,salt).equals(dbPass)){
             return false;
         }
         String token = UUID.randomUUID().toString().replace("-","");
         Cookie cookie = new Cookie(COOKIE_NAME_TOKEN, token);
         cookie.setPath("/");
         response.addCookie(cookie);
+        return true;
+    }
+
+    public boolean register(HttpServletResponse response, String userName, String password, String salt){
+        SaleUser saleUser = new SaleUser();
+        saleUser.setNickname(userName);
+        saleUser.setPassword(Md5.formPass2DBPass(password,salt));
+        saleUser.setRegisterDate(new Date());
+        saleUser.setSalt(salt);
+        try {
+            saleUserDao.insert(saleUser);
+            SaleUser saleUserNew = saleUserDao.getByNickname(userName);
+            if(saleUserNew == null){
+                return false;
+            }
+            // set Cookie: distributed sessions
+            Cookie cookie = new Cookie(COOKIE_NAME_TOKEN, UUID.randomUUID().toString().replace("-",""));
+            response.addCookie(cookie);
+        }catch (Exception e){
+            logger.error("Register Failed", e);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updatePassword(HttpServletResponse response, String nickName, String password){
+        SaleUser saleUser = saleUserDao.getByNickname(nickName);
+        if (saleUser == null){
+            return false;
+        }
+        SaleUser saleUserUpdate = new SaleUser();
+        saleUserUpdate.setPassword(Md5.formPass2DBPass(password, saleUser.getSalt()));
+        saleUserDao.update(saleUserUpdate);
         return true;
     }
 

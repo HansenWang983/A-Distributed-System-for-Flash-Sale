@@ -38,5 +38,4 @@ public class GoodsController extends BaseController{
         return render(request, response, model, "goods_list");
     }
 
-    @RequestMapping
 }
