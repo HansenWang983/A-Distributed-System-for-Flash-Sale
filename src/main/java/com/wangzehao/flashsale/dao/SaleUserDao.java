@@ -14,7 +14,7 @@ public interface SaleUserDao {
     @Update("update sale_user set password = #{password} where id = #{id}")
     public void update(SaleUser toBeUpdate);
 
-    @Insert("insert into sale_user (id , nickname ,password , salt ,head,register_date,last_login_date)value (#{id},#{nickname},#{password},#{salt},#{head},#{registerDate},#{lastLoginDate}) ")
+    @Insert("insert into sale_user (id , nickname ,password , salt ,head,register_date,last_login_date) value (#{id},#{nickname},#{password},#{salt},#{head},#{registerDate},#{lastLoginDate}) ")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     public void insert(SaleUser saleUser);
 }
