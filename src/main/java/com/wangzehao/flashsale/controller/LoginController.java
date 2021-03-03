@@ -26,7 +26,7 @@ public class LoginController {
     @RequestMapping("/to_login")
     public String toLogin(LoginVo loginVo, Model model) {
         logger.info(loginVo.toString());
-        model.addAttribute("count",10);
+        model.addAttribute("count",1);
         return "login";
     }
 
