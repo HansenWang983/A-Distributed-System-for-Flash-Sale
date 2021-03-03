@@ -29,11 +29,10 @@ public class OrderController {
 
     @RequestMapping("/detail")
     @ResponseBody
-    public OrderDetailVo orderInfo(Model model, SaleUser user,
-                                   @RequestParam("orderId") long orderId) {
-        if (user == null) {
-            return null;
-        }
+    public OrderDetailVo orderInfo(@RequestParam("orderId") long orderId) {
+//        if (user == null) {
+//            return null;
+//        }
         OrderInfo order = orderService.getOrderById(orderId);
         if(order == null) {
             return null;

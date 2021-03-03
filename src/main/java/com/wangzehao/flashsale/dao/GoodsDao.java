@@ -13,6 +13,6 @@ public interface GoodsDao {
     @Select("select sg.sale_price, sg.stock_count, sg.start_date, sg.end_date, g.* from sale_goods sg left join goods g on sg.goods_id = g.id")
     public List<GoodsVo> listGoodsVo();
 
-    @Select("select sg.sale_price, sg.stock_count, sg.start_date, sg.end_date, g.* from sale_goods sg left join goods g on g.goods_id = g.id where g.id = #{goodsId}")
+    @Select("select sg.sale_price, sg.stock_count, sg.start_date, sg.end_date, g.* from sale_goods sg left join goods g on sg.goods_id = g.id where g.id = #{goodsId}")
     public GoodsVo getGoodsVoByGoodsId(@Param("goodsId") long goodsId);
 }
