@@ -118,11 +118,6 @@
             </exclusions>
         </dependency>
 
-        <!--<dependency>-->
-        <!--<groupId>com.geekq.dubbo.springboot</groupId>-->
-        <!--<artifactId>miaosha-rely</artifactId>-->
-        <!--<version>0.0.1-SNAPSHOT</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -232,7 +227,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>1.5.2.RELEASE</version>
                 <configuration>
-                    <mainClass>com.geekq.miaosha.GeekQMainApplication</mainClass><!--springboot启动类目录-->
+                    <mainClass>com.wangzehao.flashsale.FlashSaleApplication</mainClass><!--springboot启动类目录-->
                 </configuration>
                 <executions>
                     <execution>

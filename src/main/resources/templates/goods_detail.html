@@ -49,7 +49,7 @@
                 <span th:if="${status eq 2}">End</span>
             </td>
             <td>
-                <form id="miaoshaForm" method="post" action="/miaosha/do_miaosha">
+                <form id="saleForm" method="post" action="/sale/do_sale">
                     <button class="btn btn-primary btn-block" type="submit" id="buyButton">Buy</button>
                     <input type="hidden" name="goodsId" th:value="${goods.id}" />
                 </form>

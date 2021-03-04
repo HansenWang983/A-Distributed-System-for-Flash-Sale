@@ -12,12 +12,12 @@
     <link rel="stylesheet" th:href="@{/css/common.css}" />
     <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
     <script>
-        $(function() {// innitialize
-            $("#verifyCodeImg").attr("src", "/miaosha/verifyCodeRegister");
+        $(function() {// initialize
+            $("#verifyCodeImg").attr("src", "/sale/verifyCodeRegister");
             $("#verifyCodeImg").show();
         });
         function refreshVerifyCode(){
-            $("#verifyCodeImg").attr("src", "/miaosha/verifyCodeRegister");
+            $("#verifyCodeImg").attr("src", "/sale/verifyCodeRegister");
         };
 
         function checkPhone(phone){
@@ -34,22 +34,22 @@
             var verifyCode = $("#verifyCode").val();
             var check = checkPhone(username);
             if(check){
-                alert("手机号不符合要求");
+                alert("phone no format");
                 return ;
             }
             if(inputPass==""||inputPass==null||inputPass == undefined ){
-                alert("密码不能为空！");
+                alert("password left blank");
                 return ;
             }
             if(username==""||username==null||username == undefined ){
-                alert("用户名不能为空！");
+                alert("username left blank");
                 return ;
             }
             if(inputPass!=passwordrepeat){
-                alert("密码不一致！");
+                alert("password don't match");
             }
             if(verifyCode!=verifyCode){
-                alert("验证码不能为空！");
+                alert("verify code incorrect");
             }
             var salt = g_passsword_salt;
             var str = ""+salt.charAt(0)+salt.charAt(2) + inputPass +salt.charAt(5) + salt.charAt(4);
@@ -81,7 +81,7 @@
     </script>
 </head>
 <body>
-<form name="registerForm" id="registerForm" method="post"  >
+<form name="registerForm" id="registerForm" method="post">
     <div class="wrap login_wrap">
         <div class="content">
             <div class="logo"></div>
@@ -95,18 +95,22 @@
                         <div class="form_text_ipt">
                             <input id="username" name="username" type="text" placeholder="手机号" />
                         </div>
-                        <div class="ececk_warning"><span>手机号/邮箱不能为空</span></div>
+                        <div class="ececk_warning"><span>phone/email left blank</span></div>
+
                         <div class="form_text_ipt">
                             <input id="password" name="password" type="password" placeholder="密码" />
                         </div>
-                        <div class="ececk_warning"><span>密码不能为空</span></div>
+                        <div class="ececk_warning"><span>password left blank</span></div>
+
                         <div class="form_text_ipt">
                             <input id="repassword" name="repassword" type="password" placeholder="重复密码" />
                         </div>
-                        <div class="ececk_warning"><span>密码不能为空</span></div>
+                        <div class="ececk_warning"><span>password left blank</span></div>
+
                         <div class="form_text_ipt">
-                            <img id="verifyCodeImg" width="80" height="32" src="/miaosha/verifyCodeRegister" type="text" onclick="refreshVerifyCode()" />
+                            <img id="verifyCodeImg" width="80" height="32" src="/sale/verifyCodeRegister" type="text" onclick="refreshVerifyCode()" />
                         </div>
+
                         <div class="form_text_ipt">
                             <input id="verifyCode"  name="verifyCode"  type="text" placeholder="验证码"/>
                         </div>
@@ -115,6 +119,7 @@
                         <div class="form_btn">
                             <button type="button" onclick="register_go()">Register</button>
                         </div>
+
                         <div class="form_reg_btn">
                             <span>已有帐号？</span><a href="/login/to_login">Login Now</a>
                         </div>

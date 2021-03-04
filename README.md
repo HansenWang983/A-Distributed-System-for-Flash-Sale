@@ -46,7 +46,7 @@ A distributed system for flash sale  implemented in Java.
   CREATE TABLE `sale_goods` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Id',
     `goods_id` bigint(20) DEFAULT NULL COMMENT 'goods Id',
-    `miaosha_price` decimal(10,2) DEFAULT '0.00' COMMENT 'sale price',
+    `sale_price` decimal(10,2) DEFAULT '0.00' COMMENT 'sale price',
     `stock_count` int(11) DEFAULT NULL COMMENT 'stock count',
     `start_date` datetime DEFAULT NULL COMMENT 'sale start time',
     `end_date` datetime DEFAULT NULL COMMENT 'sale end time',
@@ -169,4 +169,10 @@ A distributed system for flash sale  implemented in Java.
 ## Login
 
 password saved in MD5(MD5(pass+salt) + salt)
+
+
+
+
+
+## Jmeter Stress Testing
 
