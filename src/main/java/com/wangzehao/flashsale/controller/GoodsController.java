@@ -4,12 +4,14 @@ import com.wangzehao.flashsale.domain.SaleUser;
 import com.wangzehao.flashsale.service.GoodsService;
 import com.wangzehao.flashsale.service.SaleUserService;
 import com.wangzehao.flashsale.service.UserService;
+import com.wangzehao.flashsale.vo.GoodsDetailVo;
 import com.wangzehao.flashsale.vo.GoodsVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,6 +40,60 @@ public class GoodsController extends BaseController{
         return render(request, response, model, "goods_list");
     }
 
-//    @RequestMapping
+    @RequestMapping(value="/detail/{goodsId}")
+    @ResponseBody
+    public GoodsDetailVo detail(HttpServletRequest request, HttpServletResponse response, SaleUser user,
+                                             @PathVariable("goodsId")long goodsId) {
+        GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+        long startAt = goods.getStartDate().getTime();
+        long endAt = goods.getEndDate().getTime();
+        long now = System.currentTimeMillis();
+        int status = 0;
+        int remainSeconds = 0;
+        if(now < startAt ) { // not begin
+            status = 0;
+            remainSeconds = (int)((startAt - now )/1000);
+        }else  if(now > endAt){ // end
+            status = 2;
+            remainSeconds = -1;
+        }else { // onging
+            status = 1;
+            remainSeconds = 0;
+        }
+        GoodsDetailVo vo = new GoodsDetailVo();
+        vo.setGoods(goods);
+        vo.setUser(user);
+        vo.setRemainSeconds(remainSeconds);
+        vo.setStatus(status);
+        return vo;
+    }
 
+    @RequestMapping(value="/to_detail/{goodsId}", produces = "text/html")
+    @ResponseBody
+    public String renderDetail(HttpServletRequest request, HttpServletResponse response, Model model, SaleUser user,
+                                @PathVariable("goodsId")long goodsId) {
+        model.addAttribute("user", user);
+        GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+        model.addAttribute("goods", goods);
+
+        long startAt = goods.getStartDate().getTime();
+        long endAt = goods.getEndDate().getTime();
+        long now = System.currentTimeMillis();
+        int status = 0;
+        int remainSeconds = 0;
+        if(now < startAt ) { // not begin
+            status = 0;
+            remainSeconds = (int)((startAt - now )/1000);
+        }else  if(now > endAt){ // end
+            status = 2;
+            remainSeconds = -1;
+        }else { // onging
+            status = 1;
+            remainSeconds = 0;
+        }
+        model.addAttribute("status", status);
+        model.addAttribute("remainSeconds", remainSeconds);
+
+        return render(request, response, model, "goods_detail");
+    }
 }

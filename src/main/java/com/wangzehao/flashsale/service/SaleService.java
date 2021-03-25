@@ -36,13 +36,4 @@ public class SaleService {
         return 0;
     }
 
-    public boolean checkVerifyCodeRegister(int verifyCode) {
-        Integer codeOld = redisService.get(MiaoshaKey.getMiaoshaVerifyCodeRegister,"regitser", Integer.class);
-        if(codeOld == null || codeOld - verifyCode != 0 ) {
-            return false;
-        }
-        redisService.delete(MiaoshaKey.getMiaoshaVerifyCode, "regitser");
-        return true;
-    }
-    
 }
