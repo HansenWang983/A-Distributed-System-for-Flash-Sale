@@ -50,6 +50,12 @@ public class SaleUserService {
     }
 
     public boolean register(HttpServletResponse response, String userName, String password, String salt){
+
+        SaleUser saleUserOld = saleUserDao.getByNickname(userName);
+        if(saleUserOld != null){
+            return false;
+        }
+
         SaleUser saleUser = new SaleUser();
         saleUser.setNickname(userName);
         saleUser.setPassword(Md5.formPass2DBPass(password,salt));

@@ -1,4 +1,6 @@
-## Flash Sale Distributed System
+[toc]
+
+# Flash Sale Distributed System
 
 A distributed system for flash sale  implemented in Java.
 
@@ -7,10 +9,14 @@ A distributed system for flash sale  implemented in Java.
 - mysql
 
   ```
-  Host           : localhost:3306
+  Port           : 3306
   Database       : flash_sale
   ```
-
+	
+	![](db_schema.jpg)
+	
+  
+  
   ```sql
   SET FOREIGN_KEY_CHECKS=0;
   
@@ -37,7 +43,7 @@ A distributed system for flash sale  implemented in Java.
   INSERT INTO `goods` VALUES ('3', 'iphone8', 'Apple iPhone 8 (A1865) 64GB', '/img/iphone8.png', 'Apple iPhone 8 (A1865) 64GB', '5589.00', '10000');
   INSERT INTO `goods` VALUES ('4', 'Mi 6', 'Mi 6 4GB+32GB', '/img/mi6.png', 'Mi 6 4GB+32GB', '3212.00', '10000');
   ```
-
+  
   ```sql
   -- ----------------------------
   -- Table structure for sale_goods
@@ -161,18 +167,168 @@ A distributed system for flash sale  implemented in Java.
   INSERT INTO `sale_order` VALUES ('1549', '18912341234', '1563', '4');
   INSERT INTO `sale_order` VALUES ('1550', '18912341234', '1564', '3');
   ```
-  
-  
 
 
 
-## Login
+## DAO (data access object)
 
-password saved in MD5(MD5(pass+salt) + salt)
+Mapper
+
+@Interface
+
+sql statement to CRUD database record into domain model
+
+
+
+## Service 
+
+@Autowired DAO
+
+
+
+### UserService
+
+1. query user by userid
+
+
+
+### GoodsService
+
+1. List all goods info
+2. List one good info by goodsid
+3. reduce stock of one good in flash sale
+
+
+
+### OrderService
+
+1. query order by userid and goodsid
+2. make an order: create an order info & sale
+
+
+
+### SaleService
+
+
+
+
+
+### SaleUserService
+
+
+
+
+
+
+
+## VO
+
+
+
+## API 
+
+### login 
+
+root route /login
+
+1. GET /to_login
+2. GET /do_login
+
+
+
+### Register
+
+root route /user
+
+1. GET /do_register
+2. GET /register
+
+
+
+### Sale
+
+root route /sale
+
+1. GET /verifyCodeRegister
+2. GET /verifyCode
+3. GET /path
+
+
+
+### Order
+
+root route /order
+
+1. GET /detail
+
+
+
+### Goods
+
+root route /goods
+
+1. GET /to_list
+2. GET /detail/{goodsid}
+3. GET /to_deatil/{goodsid}
+4. 
+
+
+
+## Register & Login
+
+### 前端注册界面 register.html
+
+一、首先对注册信息进行验证：
+
+1. 用户名
+2. 密码
+3. 确认密码
+4. 验证码
+
+二、设置全局 salt 值，根据输入密码生成独立 salt，并进行 md5 散列，得到加密后的密码
+
+三、发送 ajax 请求到后端注册 url，包括用户名，密码，salt，验证码；返回成功则跳转到商品列表 url
+
+四、后端 controller 通过 redis service 验证验证码，密码通过 salt 进行二次哈希存储到数据库 `password saved in MD5(MD5(pass+salt) + salt)`；注册成功通过 UUID 生成随机 token，最终 set cookie
+
+
+
+### 前端登录界面 Login.html
+
+一、form 采用 jquery validate 插件验证用户名和密码长度
+
+二、发送 ajax 请求到后端注册 url，包括用户名，密码，salt，验证码；返回成功则跳转到商品列表 url
+
+
+
+
+
+## Redis
+
+使用 Jedis 连接 redis 中间件，使用 Jedis 打开一条Socket通道和Redis服务进行连接。
+
+基于 JedisPoolConfig 进行连接池配置，(如最大连接数，最大空数等）。
+
+https://www.jianshu.com/p/a1038eed6d44
+
+```
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+```
+
+定义 RedisConfig，引入配置信息
+
+定义 RedisPoolFactory，根据 RedisConfig 配置 JedisPoolConfig，并管理 *JedisPool*，并注入 Bean
 
 
 
 
 
 ## Jmeter Stress Testing
+
+
+
+
 

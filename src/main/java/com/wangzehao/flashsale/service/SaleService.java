@@ -168,12 +168,12 @@ public class SaleService {
             return 0;
         }
     }
-
-    public boolean checkVerifyCode(SaleUser user, long goodsId, int verifyCode) {
-
-    }
-
-    public String createSalePath(SaleUser user, long goodsId) {
-
-    }
+//
+//    public boolean checkVerifyCode(SaleUser user, long goodsId, int verifyCode) {
+//
+//    }
+//
+//    public String createSalePath(SaleUser user, long goodsId) {
+//
+//    }
 }

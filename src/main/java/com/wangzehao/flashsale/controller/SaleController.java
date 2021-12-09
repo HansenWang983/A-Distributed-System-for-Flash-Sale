@@ -102,14 +102,12 @@ public class SaleController implements InitializingBean {
         if(user == null){
             return "error";
         }
-        boolean check = saleService.checkVerifyCode(user, goodsId, verifyCode);
-        if (!check) {
-            return "error";
-        }
-        String path = saleService.createSalePath(user, goodsId);
-        return path;
+//        boolean check = saleService.checkVerifyCode(user, goodsId, verifyCode);
+//        if (!check) {
+//            return "error";
+//        }
+//        String path = saleService.createSalePath(user, goodsId);
+//        return path;
+        return "ok";
     }
-
-    
-
 }

@@ -22,11 +22,11 @@
 <body>
 
 <div class="panel panel-default">
-    <div class="panel-heading">Flash Sale Goods Lists</div>
-    <div  class="panel-heading">
-        <button onclick="messageRegister()">Message Center</button>
-        <input id="userid" th:value="${user.id}"></input>
-    </div>　　
+    <div class="panel-heading">Sale Goods Lists</div>
+<!--    <div  class="panel-heading">-->
+<!--        <button onclick="messageRegister()">Message Center</button>-->
+<!--        <input id="userid" th:value="${user.id}"></input>-->
+<!--    </div>　　-->
     <table class="table" id="goodslist">
         <tr><td>Name</td><td>Image</td><td>Original Price</td><td>Discount Price</td><td>Stock Count</td><td>Detail</td></tr>
         <tr  th:each="goods,goodsStat : ${goodsList}">
@@ -41,11 +41,11 @@
 </div>
 </body>
 
-<script>
-    function messageRegister() {
-        var userid = $("#userid").val();
-        window.location.href='/message/list?userid='+userid;
-    }
+<!--<script>-->
+<!--    function messageRegister() {-->
+<!--        var userid = $("#userid").val();-->
+<!--        window.location.href='/message/list?userid='+userid;-->
+<!--    }-->
 
-</script>
+<!--</script>-->
 </html>

@@ -31,7 +31,7 @@ Date.prototype.format = function (format) {
     return format;  
 };
 
-$(function(){
+function aaa(){
 
     // login input
     $('.form_text_ipt input').focus(function(){
@@ -67,4 +67,4 @@ $(function(){
             $(this).parent().next().hide();
         }
     });
-});
+};

@@ -28,9 +28,9 @@
 
     <div class="form-group">
         <div class="row">
-            <label class="form-label col-md-4">Please input Phone Number</label>
+            <label class="form-label col-md-4">Please input username</label>
             <div class="col-md-5">
-                <input id="mobile" name = "mobile" class="form-control" type="text" placeholder="phone No." required="true"  minlength="11" maxlength="11" />
+                <input id="mobile" name = "mobile" class="form-control" type="text" placeholder="username" required="true"/>
             </div>
             <div class="col-md-1">
             </div>
@@ -39,9 +39,9 @@
 
     <div class="form-group">
         <div class="row">
-            <label class="form-label col-md-4">PLease input password</label>
+            <label class="form-label col-md-4">Please input password</label>
             <div class="col-md-5">
-                <input id="password" name="password" class="form-control" type="password"  placeholder="password" required="true" minlength="6" maxlength="16" />
+                <input id="password" name="password" class="form-control" type="password"  placeholder="password" required="true"/>
             </div>
         </div>
     </div>
@@ -53,9 +53,9 @@
         <div class="col-md-5">
             <button class="btn btn-primary btn-block" type="submit" onclick="login()">Login</button>
         </div>
-        <div class="col-md-5">
-            <p th:text="'Website visit count:'+${count}" ></p>
-        </div>
+<!--        <div class="col-md-5">-->
+<!--            <p th:text="'Website visit count:'+${count}" ></p>-->
+<!--        </div>-->
     </div>
 
 </form>
@@ -89,7 +89,7 @@
             },
             success:function(data){
                 layer.closeAll();
-                if(data.code == 0){
+                if(data == "success"){
                     layer.msg("success");
                     window.location.href="/goods/to_list";
                 }else{
