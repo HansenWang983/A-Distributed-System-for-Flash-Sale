@@ -27,7 +27,7 @@ public class SaleService {
 
     @Transactional
     public OrderInfo sale(SaleUser user, GoodsVo goods) {
-        // reduce stock & make order
+        // reduce stock & place order
         boolean success = goodsService.reduceStock(goods);
         if(success){
             return orderService.createOrder(user,goods) ;

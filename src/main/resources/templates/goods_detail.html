@@ -48,18 +48,17 @@
                 <span th:if="${status eq 2}">End</span>
             </td>
             <td>
-                <form id="saleForm" method="post" action="/sale/do_sale">
-                    <button class="btn btn-primary btn-block" type="submit" id="buyButton">Buy</button>
-                    <input type="hidden" name="goodsId" th:value="${goods.id}" />
-                </form>
-<!--                <div class="row">-->
-<!--                    <div class="form-inline">-->
-<!--&lt;!&ndash;                        <img id="verifyCodeImg" width="80" height="32"  style="display:none" onclick="refreshVerifyCode()"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input id="verifyCode"  class="form-control" style="display:none"/>&ndash;&gt;-->
-<!--                        <button class="btn btn-primary" type="button" id="buyButton"onclick="getSalePath()">Buy</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <input type="hidden" name="goodsId"  id="goodsId" />-->
+<!--                <form id="saleForm" method="post" action="/sale/do_sale">-->
+<!--                    <button class="btn btn-primary btn-block" type="submit" id="buyButton">Buy</button>-->
+<!--                    <input type="hidden" name="goodsId" th:value="${goods.id}" />-->
+<!--                </form>-->
+                <div class="row">
+                    <div class="form-inline">
+<!--                        <img id="verifyCodeImg" width="80" height="32"  style="display:none" onclick="refreshVerifyCode()"/>-->
+<!--                        <input id="verifyCode"  class="form-control" style="display:none"/>-->
+                        <button class="btn btn-primary" type="button" id="buyButton"onclick="getSalePath()">Buy</button>
+                    </div>
+                </div>
             </td>
         </tr>
         <tr>
@@ -79,7 +78,8 @@
 </body>
 <script>
     function getSalePath(){
-        var goodsId = $("#goodsId").val();
+        var goodsId = goods.goodsId;
+        console.log(goodsId);
         g_showLoading();
         $.ajax({
             url:"/sale/path",
@@ -102,7 +102,52 @@
     }
 
     function placeOrder(path){
-        console.log(path);
+        $.ajax({
+            url:"/sale/"+path+"/do_sale",
+            type:"POST",
+            data:{
+                goodsId:$("#goodsId").val()
+            },
+            success:function(data){
+                if(data == "success"){
+                    //window.location.href="/order_detail.htm?orderId="+data.data.id;
+                    getOrderResult($("#goodsId").val());
+                }else{
+                    layer.msg(data.msg);
+                }
+            },
+            error:function(){
+                layer.msg("client request error");
+            }
+        });
+    }
+
+
+    function getOrderResult(goodsId){
+        g_showLoading();
+        $.ajax({
+            url:"/sale/result",
+            type:"GET",
+            data:{
+                goodsId:$("#goodsId").val(),
+            },
+            success:function(data){
+                if(data != -1){
+                    layer.confirm("Congratulation! You're all set. To check the order detail?", {btn:["Sure","Not now"]},
+                    function(){
+                        window.location.href="/order_detail.htm?orderId="+data;
+                    },
+                    function(){
+                        layer.closeAll();
+                    });
+                }else{
+                    layer.msg(data.msg);
+                }
+            },
+            error:function(){
+                layer.msg("client request error");
+            }
+        });
     }
 
     $(function(){
