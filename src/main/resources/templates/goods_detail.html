@@ -77,9 +77,10 @@
 </div>
 </body>
 <script>
+    var goodsId = [[${goods.id}]];
+
     function getSalePath(){
-        var goodsId = goods.goodsId;
-        console.log(goodsId);
+        // console.log(goodsId);
         g_showLoading();
         $.ajax({
             url:"/sale/path",
@@ -106,12 +107,12 @@
             url:"/sale/"+path+"/do_sale",
             type:"POST",
             data:{
-                goodsId:$("#goodsId").val()
+                goodsId: goodsId,
             },
             success:function(data){
                 if(data == "success"){
                     //window.location.href="/order_detail.htm?orderId="+data.data.id;
-                    getOrderResult($("#goodsId").val());
+                    getOrderResult();
                 }else{
                     layer.msg(data.msg);
                 }
@@ -123,13 +124,13 @@
     }
 
 
-    function getOrderResult(goodsId){
+    function getOrderResult(){
         g_showLoading();
         $.ajax({
             url:"/sale/result",
             type:"GET",
             data:{
-                goodsId:$("#goodsId").val(),
+                goodsId:goodsId,
             },
             success:function(data){
                 if(data != -1){
