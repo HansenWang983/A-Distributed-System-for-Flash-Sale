@@ -1,5 +1,6 @@
 package com.wangzehao.flashsale.controller;
 
+import com.wangzehao.flashsale.domain.OrderInfo;
 import com.wangzehao.flashsale.domain.SaleUser;
 import com.wangzehao.flashsale.service.GoodsService;
 import com.wangzehao.flashsale.service.OrderService;
@@ -108,6 +109,24 @@ public class SaleController implements InitializingBean {
 //        }
 //        String path = saleService.createSalePath(user, goodsId);
 //        return path;
-        return "ok";
+        return saleService.createBuyPath(user, goodsId);
+    }
+
+    @RequestMapping(value = "/do_sale")
+    @ResponseBody
+    public String placeOrder(HttpServletRequest request, SaleUser user,
+                              GoodsVo goodsVo){
+        if(user == null){
+            return "error";
+        }
+//        boolean check = saleService.checkVerifyCode(user, goodsId, verifyCode);
+//        if (!check) {
+//            return "error";
+//        }
+//        String path = saleService.createSalePath(user, goodsId);
+//        return path;
+        System.out.println(goodsVo.getId());
+        OrderInfo orderInfo = saleService.sale(user, goodsVo);
+        return "success";
     }
 }

@@ -3,6 +3,7 @@ package com.wangzehao.flashsale.service;
 import com.wangzehao.flashsale.domain.OrderInfo;
 import com.wangzehao.flashsale.domain.SaleOrder;
 import com.wangzehao.flashsale.domain.SaleUser;
+import com.wangzehao.flashsale.util.Md5;
 import com.wangzehao.flashsale.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import javax.script.ScriptEngineManager;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class SaleService {
@@ -40,6 +42,15 @@ public class SaleService {
             return order.getOrderId();
         }
         return 0;
+    }
+
+    public String createBuyPath(SaleUser user, long goodsId) {
+        if(user == null || goodsId <=0) {
+            return null;
+        }
+        String str = Md5.md5(UUID.randomUUID().toString()+"123456");
+        System.out.println(str);
+        return str;
     }
 
     public BufferedImage createVerifyCode(SaleUser user, long goodsId) {

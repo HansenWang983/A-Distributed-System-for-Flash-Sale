@@ -48,18 +48,18 @@
                 <span th:if="${status eq 2}">End</span>
             </td>
             <td>
-<!--                <form id="saleForm" method="post" action="/sale/do_sale">-->
-<!--                    <button class="btn btn-primary btn-block" type="submit" id="buyButton">Buy</button>-->
-<!--                    <input type="hidden" name="goodsId" th:value="${goods.id}" />-->
-<!--                </form>-->
-                <div class="row">
-                    <div class="form-inline">
-<!--                        <img id="verifyCodeImg" width="80" height="32"  style="display:none" onclick="refreshVerifyCode()"/>-->
-<!--                        <input id="verifyCode"  class="form-control" style="display:none"/>-->
-                        <button class="btn btn-primary" type="button" id="buyButton"onclick="getSalePath()">Buy</button>
-                    </div>
-                </div>
-                <input type="hidden" name="goodsId"  id="goodsId" />
+                <form id="saleForm" method="post" action="/sale/do_sale">
+                    <button class="btn btn-primary btn-block" type="submit" id="buyButton">Buy</button>
+                    <input type="hidden" name="goodsId" th:value="${goods.id}" />
+                </form>
+<!--                <div class="row">-->
+<!--                    <div class="form-inline">-->
+<!--&lt;!&ndash;                        <img id="verifyCodeImg" width="80" height="32"  style="display:none" onclick="refreshVerifyCode()"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input id="verifyCode"  class="form-control" style="display:none"/>&ndash;&gt;-->
+<!--                        <button class="btn btn-primary" type="button" id="buyButton"onclick="getSalePath()">Buy</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <input type="hidden" name="goodsId"  id="goodsId" />-->
             </td>
         </tr>
         <tr>
@@ -86,12 +86,11 @@
             type:"GET",
             data:{
                 goodsId:goodsId,
-                verifyCode:$("#verifyCode").val()
+                // verifyCode:$("#verifyCode").val()
             },
             success:function(data){
-                if(data.code == 0){
-                    var path = data.data;
-                    doSale(path);
+                if(data != "error"){
+                    placeOrder(data);
                 }else{
                     layer.msg(data.msg);
                 }
@@ -102,8 +101,8 @@
         });
     }
 
-    function doSale(path){
-
+    function placeOrder(path){
+        console.log(path);
     }
 
     $(function(){
@@ -125,15 +124,15 @@
             if(timeout){
                 clearTimeout(timeout);
             }
-            $("#Tip").html("Flash Sale Begin");
+            $("#Tip").html("Sale Begin");
         }else{
             $("#buyButton").attr("disabled", true);
             $("#Tip").html("Sale End");
         }
     }
 
-    function refreshVerifyCode(){
-        $("#verifyCodeImg").attr("src", "/sale/verifyCode?goodsId="+$("#goodsId").val()+"&timestamp="+new Date().getTime());
-    }
+    // function refreshVerifyCode(){
+    //     $("#verifyCodeImg").attr("src", "/sale/verifyCode?goodsId="+$("#goodsId").val()+"&timestamp="+new Date().getTime());
+    // }
 </script>
 </html>
